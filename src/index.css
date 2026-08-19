@@ -249,10 +249,10 @@ body {
   height: 60px;
 }
 
-/* Hide custom cursor on touch devices */
-@media (hover: none) {
-  body { cursor: auto; }
-  .cursor-ring, .cursor-dot { display: none; }
+/* Hide custom cursor on touch devices and small screens */
+@media (hover: none), (pointer: coarse), (max-width: 768px) {
+  body { cursor: auto !important; }
+  .cursor-ring, .cursor-dot { display: none !important; }
 }
 
 /* Reduced motion — respect user preference */
@@ -266,3 +266,4 @@ body {
     animation: none;
   }
 }
+

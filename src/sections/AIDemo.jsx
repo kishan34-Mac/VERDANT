@@ -156,68 +156,118 @@ export default function AIDemo() {
   };
 
   return (
-    <section ref={root} id="science" style={{ background: 'var(--bg-secondary)', padding: '120px 8vw' }}>
-      <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto" style={{ gridTemplateColumns: 'minmax(0,45%) minmax(0,55%)' }}>
-        <div>
-          <div className="demo-text eyebrow mb-4">LIVE DEMO</div>
-          <h2 className="demo-text font-display mb-6" style={{ fontSize: 'clamp(2rem,4vw,3rem)', lineHeight: 1.1, color: 'var(--text-primary)' }}>
+    <section
+      ref={root}
+      id="science"
+      className="py-16 sm:py-24 px-4 sm:px-8 md:px-[8vw]"
+      style={{ background: 'var(--bg-secondary)' }}
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
+        <div className="lg:col-span-5">
+          <div className="demo-text eyebrow mb-3 sm:mb-4">LIVE DEMO</div>
+          <h2
+            className="demo-text font-display mb-4 sm:mb-6"
+            style={{
+              fontSize: 'clamp(2rem, 3.5vw, 3rem)',
+              lineHeight: 1.15,
+              color: 'var(--text-primary)',
+            }}
+          >
             Ask the planet anything.
           </h2>
-          <p className="demo-text" style={{ fontSize: '16px', fontWeight: 300, color: 'var(--text-secondary)', lineHeight: 1.8 }}>
+          <p
+            className="demo-text"
+            style={{
+              fontSize: '15px',
+              fontWeight: 300,
+              color: 'var(--text-secondary)',
+              lineHeight: 1.7,
+            }}
+          >
             Our AI ingests satellite data, sensor networks, and climate models — and answers in plain language.
           </p>
         </div>
 
-        <div>
-          <div className="demo-terminal" style={{ background: '#080e08', border: '1px solid var(--border)', borderRadius: '4px', overflow: 'hidden' }}>
-            <div className="flex items-center px-4" style={{ background: '#111811', padding: '10px 16px' }}>
-              <div className="flex gap-2">
-                <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ff5f56' }} />
-                <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ffbd2e' }} />
-                <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#27c93f' }} />
+        <div className="lg:col-span-7 w-full">
+          <div
+            className="demo-terminal w-full"
+            style={{
+              background: '#080e08',
+              border: '1px solid var(--border)',
+              borderRadius: '6px',
+              overflow: 'hidden',
+            }}
+          >
+            <div
+              className="flex items-center justify-between px-3 sm:px-4 py-2.5"
+              style={{ background: '#111811' }}
+            >
+              <div className="flex gap-1.5 sm:gap-2">
+                <div style={{ width: '9px', height: '9px', borderRadius: '50%', background: '#ff5f56' }} />
+                <div style={{ width: '9px', height: '9px', borderRadius: '50%', background: '#ffbd2e' }} />
+                <div style={{ width: '9px', height: '9px', borderRadius: '50%', background: '#27c93f' }} />
               </div>
-              <div className="flex-1 text-center font-mono" style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
+              <div className="font-mono text-center truncate px-2" style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
                 verdant.ai — climate terminal
               </div>
-              <div style={{ width: '60px' }} />
+              <div className="w-6 sm:w-8" />
             </div>
 
-            <div ref={terminalBodyRef} className="terminal-scroll" style={{ padding: '1.5rem', height: '280px', overflowY: 'auto', fontFamily: "'JetBrains Mono', monospace", fontSize: '13px', lineHeight: 1.6 }}>
-              {entries.map((entry) => (
-                <div key={entry.id} style={{ marginBottom: '8px' }}>
-                  <TerminalEntry entry={entry} />
+            <div
+              ref={terminalBodyRef}
+              className="terminal-scroll p-4 sm:p-6"
+              style={{
+                height: '260px',
+                overflowY: 'auto',
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: '12px',
+                lineHeight: 1.6,
+              }}
+            >
+              {entries.length === 0 ? (
+                <div style={{ color: 'var(--text-muted)' }}>
+                  # Type a query below or select one of the suggested prompts to query planetary models.
                 </div>
-              ))}
+              ) : (
+                entries.map((entry) => (
+                  <div key={entry.id} style={{ marginBottom: '8px' }}>
+                    <TerminalEntry entry={entry} />
+                  </div>
+                ))
+              )}
             </div>
 
-            <form onSubmit={handleSubmit} className="flex items-center" style={{ borderTop: '1px solid var(--border)', padding: '12px 16px', background: '#080e08' }}>
-              <span className="font-mono" style={{ color: 'var(--accent-green)', fontSize: '13px' }}>&gt;&nbsp;</span>
+            <form
+              onSubmit={handleSubmit}
+              className="flex items-center px-3 sm:px-4 py-3"
+              style={{ borderTop: '1px solid var(--border)', background: '#080e08' }}
+            >
+              <span className="font-mono" style={{ color: 'var(--accent-green)', fontSize: '13px' }}>
+                &gt;&nbsp;
+              </span>
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="ask about carbon, reefs, ice..."
-                className="flex-1 bg-transparent border-none outline-none font-mono"
-                style={{ color: 'var(--text-primary)', fontSize: '13px' }}
+                className="flex-1 bg-transparent border-none outline-none font-mono text-xs sm:text-sm"
+                style={{ color: 'var(--text-primary)' }}
               />
             </form>
           </div>
 
-          <div className="flex flex-wrap gap-3 mt-4">
+          <div className="flex flex-wrap gap-2 sm:gap-3 mt-4">
             {presets.map((p) => (
               <button
                 key={p.label}
                 onClick={() => runQuery(p.label)}
                 disabled={busy}
-                className="font-mono"
+                className="font-mono text-xs py-1.5 px-3 sm:px-3.5 rounded"
                 style={{
                   border: '1px solid var(--border)',
                   color: 'var(--text-secondary)',
-                  padding: '6px 14px',
-                  borderRadius: '2px',
-                  fontSize: '12px',
                   background: 'transparent',
-                  cursor: busy ? 'not-allowed' : 'none',
+                  cursor: busy ? 'not-allowed' : 'pointer',
                   opacity: busy ? 0.5 : 1,
                   transition: 'all 0.3s ease',
                 }}

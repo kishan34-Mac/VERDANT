@@ -51,35 +51,55 @@ export default function ImpactNumbers() {
   }, []);
 
   return (
-    <section ref={root} id="impact" style={{ background: 'var(--bg-secondary)', padding: '100px 8vw' }}>
-      <div className="flex flex-col items-center gap-12">
+    <section
+      ref={root}
+      id="impact"
+      className="py-16 sm:py-24 px-4 sm:px-8 md:px-[8vw]"
+      style={{ background: 'var(--bg-secondary)' }}
+    >
+      <div className="flex flex-col items-center gap-10 sm:gap-14 max-w-6xl mx-auto">
         {/* Breathing circle */}
-        <div className="relative flex items-center justify-center" style={{ width: '400px', height: '200px' }}>
-          <div className="sonar-ring" style={{ width: '160px', height: '160px', animationDelay: '0s' }} />
-          <div className="sonar-ring" style={{ width: '160px', height: '160px', animationDelay: '1s' }} />
-          <div className="sonar-ring" style={{ width: '160px', height: '160px', animationDelay: '2s' }} />
+        <div className="relative flex items-center justify-center w-full max-w-[320px] h-[160px] sm:h-[180px]">
+          <div className="sonar-ring" style={{ width: '130px', height: '130px', animationDelay: '0s' }} />
+          <div className="sonar-ring" style={{ width: '130px', height: '130px', animationDelay: '1s' }} />
+          <div className="sonar-ring" style={{ width: '130px', height: '130px', animationDelay: '2s' }} />
           <div className="absolute" style={{ animation: 'spin 8s linear infinite' }}>
-            <Leaf size={40} style={{ color: 'var(--accent-green)' }} />
+            <Leaf size={36} style={{ color: 'var(--accent-green)' }} />
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-6 w-full max-w-4xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 w-full">
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="stat-card"
+              className="stat-card flex flex-col justify-center items-center"
               style={{
                 background: 'var(--bg-card)',
                 border: '1px solid var(--border)',
-                padding: '2rem',
+                padding: '1.75rem 1.25rem',
                 borderRadius: '4px',
                 textAlign: 'center',
               }}
             >
-              <div className="stat-num font-display" style={{ fontSize: 'clamp(2.5rem,5vw,4rem)', color: 'var(--accent-green)', lineHeight: 1 }}>
+              <div
+                className="stat-num font-display"
+                style={{
+                  fontSize: 'clamp(2.2rem, 3.8vw, 3.2rem)',
+                  color: 'var(--accent-green)',
+                  lineHeight: 1.1,
+                }}
+              >
                 0
               </div>
-              <div className="font-mono mt-3" style={{ fontSize: '14px', fontWeight: 300, color: 'var(--text-muted)', letterSpacing: '0.1em' }}>
+              <div
+                className="font-mono mt-3"
+                style={{
+                  fontSize: '12px',
+                  fontWeight: 400,
+                  color: 'var(--text-muted)',
+                  letterSpacing: '0.1em',
+                }}
+              >
                 {stat.label}
               </div>
             </div>

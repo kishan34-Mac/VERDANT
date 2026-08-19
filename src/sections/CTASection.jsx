@@ -43,25 +43,38 @@ export default function CTASection() {
   };
 
   return (
-    <section ref={root} id="cta" className="relative w-full h-screen overflow-hidden flex flex-col items-center justify-center" style={{ background: 'var(--bg-primary)' }}>
+    <section
+      ref={root}
+      id="cta"
+      className="relative w-full min-h-[85vh] py-20 px-4 sm:px-8 md:px-[8vw] overflow-hidden flex flex-col items-center justify-center"
+      style={{ background: 'var(--bg-primary)' }}
+    >
       <ParticleField />
 
-      <div className="relative text-center" style={{ zIndex: 10, maxWidth: '700px', padding: '0 8vw' }}>
-        <div className="cta-eyebrow eyebrow mb-6">JOIN THE MOVEMENT</div>
-        <h2 className="font-display" style={{ fontSize: 'clamp(3rem,7vw,6rem)', lineHeight: 1.0, color: 'var(--text-primary)' }}>
+      <div className="relative text-center w-full" style={{ zIndex: 10, maxWidth: '720px' }}>
+        <div className="cta-eyebrow eyebrow mb-4 sm:mb-6">JOIN THE MOVEMENT</div>
+        <h2
+          className="font-display"
+          style={{
+            fontSize: 'clamp(2.2rem, 6vw, 4.8rem)',
+            lineHeight: 1.05,
+            color: 'var(--text-primary)',
+          }}
+        >
           <span className="cta-line block">The planet</span>
           <span className="cta-line block">needs better</span>
           <span className="cta-line block" style={{ color: 'var(--accent-green)' }}>intelligence.</span>
         </h2>
 
-        <form onSubmit={handleSubmit} className="cta-form" style={{ maxWidth: '480px', margin: '2.5rem auto 0' }}>
-          <div className="flex items-end gap-4">
+        <form onSubmit={handleSubmit} className="cta-form w-full max-w-lg mx-auto mt-8 sm:mt-10">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-end gap-4">
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
               required
+              className="w-full font-mono text-center sm:text-left"
               style={{
                 flex: 1,
                 background: 'transparent',
@@ -69,7 +82,7 @@ export default function CTASection() {
                 borderBottom: '2px solid var(--border)',
                 color: 'var(--text-primary)',
                 fontSize: '16px',
-                padding: '12px 0',
+                padding: '12px 4px',
                 outline: 'none',
                 transition: 'border-color 0.3s ease',
               }}
@@ -78,17 +91,12 @@ export default function CTASection() {
             />
             <motion.button
               type="submit"
-              animate={submitted ? { scale: [1, 1.1, 1] } : {}}
+              animate={submitted ? { scale: [1, 1.05, 1] } : {}}
+              className="py-3.5 px-6 rounded font-semibold text-sm whitespace-nowrap transition-all duration-300"
               style={{
                 background: 'var(--accent-green)',
                 color: '#0a110a',
-                fontWeight: 600,
-                fontSize: '14px',
-                padding: '14px 28px',
-                borderRadius: '2px',
                 border: 'none',
-                cursor: 'none',
-                whiteSpace: 'nowrap',
               }}
             >
               {submitted ? `✓ You're on the list` : 'Request Early Access →'}

@@ -34,6 +34,14 @@ export default function Features() {
         stagger: 0.1,
         scrollTrigger: { trigger: root.current, start: 'top 80%' },
       });
+      gsap.from('.feature-card-mobile', {
+        y: 40,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: '.feature-cards-container', start: 'top 85%' },
+      });
       gsap.from('.hex-item', {
         scale: 0,
         opacity: 0,
@@ -48,18 +56,76 @@ export default function Features() {
   }, []);
 
   return (
-    <section ref={root} id="platform" style={{ background: 'var(--bg-primary)', padding: '120px 8vw' }}>
-      <div className="text-center mb-16">
+    <section
+      ref={root}
+      id="platform"
+      className="py-16 sm:py-24 px-4 sm:px-8 md:px-[8vw] overflow-hidden"
+      style={{ background: 'var(--bg-primary)' }}
+    >
+      <div className="text-center mb-12 sm:mb-16">
         <div className="eyebrow mb-4">THE PLATFORM</div>
-        <h2 className="font-display" style={{ fontSize: 'clamp(2.5rem,4vw,3.5rem)', lineHeight: 1.1, color: 'var(--text-primary)' }}>
+        <h2
+          className="font-display"
+          style={{
+            fontSize: 'clamp(2.2rem, 4vw, 3.5rem)',
+            lineHeight: 1.1,
+            color: 'var(--text-primary)',
+          }}
+        >
           <span className="feature-heading inline-block">Built from the</span>{' '}
           <span className="feature-heading inline-block">ground up.</span>
         </h2>
       </div>
 
-      <div className="hex-grid relative flex items-center justify-center" style={{ height: '560px' }}>
-        {/* Honeycomb layout: center + 6 around */}
-        {/* Positions for a honeycomb with 200x230 hexagons */}
+      {/* Mobile & Tablet Card Layout (screens < 1024px) */}
+      <div className="block lg:hidden max-w-4xl mx-auto feature-cards-container">
+        {/* Core highlight card */}
+        <div
+          className="feature-card-mobile p-6 rounded-lg mb-6 flex flex-col items-center text-center"
+          style={{
+            background: 'linear-gradient(135deg, rgba(74,222,128,0.15), rgba(74,222,128,0.05))',
+            border: '1px solid var(--accent-green)',
+            boxShadow: '0 0 30px rgba(74,222,128,0.1)',
+          }}
+        >
+          <Hexagon size={36} className="text-[#4ade80] mb-2" />
+          <div className="font-display text-xl font-bold text-[#4ade80]">VERDANT CORE</div>
+          <p className="text-xs text-[#9aab94] mt-1 max-w-sm">
+            The neural engine coordinating autonomous climate intelligence worldwide.
+          </p>
+        </div>
+
+        {/* 6 Features in responsive grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {features.map((f) => (
+            <div
+              key={f.name}
+              className="feature-card-mobile p-5 rounded flex flex-col items-start"
+              style={{
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border)',
+                transition: 'all 0.3s ease',
+              }}
+            >
+              <div
+                className="p-3 rounded mb-3 flex items-center justify-center"
+                style={{ background: 'rgba(74,222,128,0.1)' }}
+              >
+                <f.icon size={24} style={{ color: 'var(--accent-green)' }} />
+              </div>
+              <div className="font-display text-base font-semibold text-[#f0ede8] mb-1">
+                {f.name}
+              </div>
+              <div className="text-xs text-[#9aab94] font-light leading-relaxed">
+                {f.desc}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop Honeycomb Layout (screens >= 1024px) */}
+      <div className="hidden lg:flex hex-grid relative items-center justify-center" style={{ height: '560px' }}>
         {[
           { icon: Atom, name: 'Carbon Intelligence', desc: 'Real-time atmospheric tracking', pos: { x: -210, y: -58 } },
           { icon: Bird, name: 'Species Monitor', desc: 'ML-powered biodiversity mapping', pos: { x: 0, y: -116 } },

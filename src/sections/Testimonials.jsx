@@ -21,20 +21,29 @@ function Card({ t }) {
         background: 'var(--bg-card)',
         border: '1px solid var(--border)',
         borderRadius: '4px',
-        padding: '1.5rem',
-        width: '320px',
+        padding: '1.25rem sm:1.5rem',
+        width: 'clamp(260px, 75vw, 320px)',
       }}
     >
-      <div className="flex gap-1 mb-3">
+      <div className="flex gap-1 mb-2.5">
         {[0, 1, 2, 3, 4].map((i) => (
-          <Star key={i} size={14} style={{ color: 'var(--accent-amber)', fill: 'var(--accent-amber)' }} />
+          <Star key={i} size={13} style={{ color: 'var(--accent-amber)', fill: 'var(--accent-amber)' }} />
         ))}
       </div>
-      <p style={{ fontSize: '15px', fontWeight: 300, fontStyle: 'italic', color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: '16px' }}>
+      <p
+        style={{
+          fontSize: '14px',
+          fontWeight: 300,
+          fontStyle: 'italic',
+          color: 'var(--text-secondary)',
+          lineHeight: 1.6,
+          marginBottom: '14px',
+        }}
+      >
         "{t.quote}"
       </p>
-      <div style={{ fontSize: '14px', fontWeight: 500, color: 'var(--text-primary)' }}>{t.name}</div>
-      <div style={{ fontSize: '12px', fontWeight: 300, color: 'var(--text-muted)' }}>{t.role}</div>
+      <div style={{ fontSize: '13px', fontWeight: 500, color: 'var(--text-primary)' }}>{t.name}</div>
+      <div style={{ fontSize: '11px', fontWeight: 300, color: 'var(--text-muted)' }}>{t.role}</div>
     </div>
   );
 }
@@ -44,16 +53,16 @@ export default function Testimonials() {
   const row2 = testimonials.slice(5);
 
   return (
-    <section style={{ background: 'var(--bg-secondary)', padding: '80px 0' }}>
-      <div className="text-center mb-12">
-        <span className="font-mono" style={{ fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '0.25em' }}>
+    <section className="py-14 sm:py-20" style={{ background: 'var(--bg-secondary)' }}>
+      <div className="text-center mb-8 sm:mb-12 px-4">
+        <span className="font-mono text-xs text-[#556650] tracking-widest uppercase">
           WHAT SCIENTISTS SAY
         </span>
       </div>
 
       <div className="marquee-mask overflow-hidden">
         <div className="marquee-row">
-          <div className="marquee-track-left flex gap-6" style={{ width: 'max-content' }}>
+          <div className="marquee-track-left flex gap-4 sm:gap-6" style={{ width: 'max-content' }}>
             {[...row1, ...row1, ...row1, ...row1].map((t, i) => (
               <Card key={`r1-${i}`} t={t} />
             ))}
@@ -61,9 +70,9 @@ export default function Testimonials() {
         </div>
       </div>
 
-      <div className="marquee-mask overflow-hidden mt-6">
+      <div className="marquee-mask overflow-hidden mt-4 sm:mt-6">
         <div className="marquee-row">
-          <div className="marquee-track-right flex gap-6" style={{ width: 'max-content' }}>
+          <div className="marquee-track-right flex gap-4 sm:gap-6" style={{ width: 'max-content' }}>
             {[...row2, ...row2, ...row2, ...row2].map((t, i) => (
               <Card key={`r2-${i}`} t={t} />
             ))}

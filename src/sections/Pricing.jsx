@@ -82,29 +82,38 @@ export default function Pricing() {
   const priceFor = (p) => (annual ? p.annual : p.monthly);
 
   return (
-    <section ref={root} id="pricing" style={{ background: 'var(--bg-primary)', padding: '120px 8vw' }}>
-      <div className="text-center mb-12">
-        <h2 className="pricing-heading font-display" style={{ fontSize: 'clamp(2.5rem,4vw,3.5rem)', lineHeight: 1.1, color: 'var(--text-primary)', marginBottom: '32px' }}>
+    <section
+      ref={root}
+      id="pricing"
+      className="py-16 sm:py-24 px-4 sm:px-8 md:px-[8vw]"
+      style={{ background: 'var(--bg-primary)' }}
+    >
+      <div className="text-center mb-10 sm:mb-14">
+        <h2
+          className="pricing-heading font-display"
+          style={{
+            fontSize: 'clamp(2.2rem, 4vw, 3.5rem)',
+            lineHeight: 1.1,
+            color: 'var(--text-primary)',
+            marginBottom: '24px',
+          }}
+        >
           Transparent pricing.
         </h2>
 
         {/* Toggle */}
-        <div className="inline-flex items-center gap-1 p-1" style={{ border: '1px solid var(--border)', borderRadius: '99px' }}>
+        <div className="inline-flex items-center gap-1 p-1 bg-[#111a11] rounded-full border border-[rgba(74,222,128,0.15)]">
           {['Monthly', 'Annual (save 20%)'].map((label, i) => {
             const active = (i === 1) === annual;
             return (
               <button
                 key={label}
                 onClick={() => setAnnual(i === 1)}
-                className="font-mono"
+                className="font-mono py-1.5 px-4 rounded-full text-xs transition-all duration-300"
                 style={{
-                  padding: '6px 16px',
-                  borderRadius: '99px',
-                  fontSize: '12px',
-                  transition: 'all 0.3s ease',
                   background: active ? 'var(--accent-green)' : 'transparent',
                   color: active ? '#0a110a' : 'var(--text-secondary)',
-                  cursor: 'none',
+                  fontWeight: active ? 600 : 400,
                 }}
               >
                 {label}
@@ -114,18 +123,16 @@ export default function Pricing() {
         </div>
       </div>
 
-      <div className="price-grid flex flex-wrap justify-center gap-6 max-w-5xl mx-auto">
+      <div className="price-grid grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto w-full items-stretch">
         {plans.map((p) => (
           <div
             key={p.name}
-            className="price-card"
+            className="price-card flex flex-col justify-between"
             style={{
               background: 'var(--bg-card)',
               border: `1px solid ${p.popular ? 'var(--accent-green)' : 'var(--border)'}`,
-              borderRadius: '4px',
-              padding: '2.5rem',
-              width: '300px',
-              transform: p.popular ? 'scale(1.02)' : 'none',
+              borderRadius: '6px',
+              padding: '2rem 1.75rem',
               boxShadow: p.popular ? '0 0 30px rgba(74,222,128,0.1)' : 'none',
               position: 'relative',
             }}
@@ -140,6 +147,7 @@ export default function Pricing() {
                   background: 'var(--accent-green)',
                   color: '#0a110a',
                   fontSize: '10px',
+                  fontWeight: 600,
                   padding: '3px 10px',
                   borderRadius: '99px',
                   letterSpacing: '0.1em',
@@ -149,56 +157,56 @@ export default function Pricing() {
               </div>
             )}
 
-            <div style={{ fontSize: '18px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '20px' }}>{p.name}</div>
+            <div>
+              <div style={{ fontSize: '18px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '16px' }}>
+                {p.name}
+              </div>
 
-            <div style={{ height: '48px', marginBottom: '20px' }}>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={annual ? 'annual' : 'monthly'}
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -20, opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="flex items-baseline gap-1"
-                >
-                  {priceFor(p) === -1 ? (
-                    <span className="font-display" style={{ fontSize: 'clamp(2rem,4vw,3rem)', fontWeight: 700, color: 'var(--text-primary)' }}>Custom</span>
-                  ) : (
-                    <>
-                      <span className="font-display" style={{ fontSize: 'clamp(2rem,4vw,3rem)', fontWeight: 700, color: 'var(--text-primary)' }}>
-                        ${priceFor(p)}
+              <div style={{ height: '48px', marginBottom: '20px' }}>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={annual ? 'annual' : 'monthly'}
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -20, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex items-baseline gap-1"
+                  >
+                    {priceFor(p) === -1 ? (
+                      <span className="font-display" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontWeight: 700, color: 'var(--text-primary)' }}>
+                        Custom
                       </span>
-                      <span style={{ color: 'var(--text-muted)', fontSize: '14px' }}>/mo</span>
-                    </>
-                  )}
-                </motion.div>
-              </AnimatePresence>
-            </div>
+                    ) : (
+                      <>
+                        <span className="font-display" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontWeight: 700, color: 'var(--text-primary)' }}>
+                          ${priceFor(p)}
+                        </span>
+                        <span style={{ color: 'var(--text-muted)', fontSize: '13px' }}>/mo</span>
+                      </>
+                    )}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
 
-            <div className="mb-6">
-              {p.features.map((f) => (
-                <div key={f.text} className="flex items-center gap-3 mb-3">
-                  {f.on ? (
-                    <Check size={16} style={{ color: 'var(--accent-green)' }} />
-                  ) : (
-                    <X size={16} style={{ color: 'var(--text-muted)' }} />
-                  )}
-                  <span style={{ fontSize: '14px', fontWeight: 300, color: f.on ? 'var(--text-secondary)' : 'var(--text-muted)' }}>
-                    {f.text}
-                  </span>
-                </div>
-              ))}
+              <div className="mb-6 space-y-2.5">
+                {p.features.map((f) => (
+                  <div key={f.text} className="flex items-start gap-2.5">
+                    {f.on ? (
+                      <Check size={16} className="text-[#4ade80] flex-shrink-0 mt-0.5" />
+                    ) : (
+                      <X size={16} className="text-[#556650] flex-shrink-0 mt-0.5" />
+                    )}
+                    <span style={{ fontSize: '13px', fontWeight: 300, color: f.on ? 'var(--text-secondary)' : 'var(--text-muted)' }}>
+                      {f.text}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <button
+              className="w-full py-3 rounded text-sm font-semibold transition-all duration-300"
               style={{
-                width: '100%',
-                padding: '12px',
-                borderRadius: '2px',
-                fontWeight: 600,
-                fontSize: '14px',
-                cursor: 'none',
-                transition: 'all 0.3s ease',
                 background: p.popular ? 'var(--accent-green)' : 'transparent',
                 color: p.popular ? '#0a110a' : 'var(--accent-green)',
                 border: `1px solid var(--accent-green)`,
